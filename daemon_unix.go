@@ -1,3 +1,4 @@
+//go:build darwin || dragonfly || freebsd || linux || netbsd || openbsd || plan9 || solaris
 // +build darwin dragonfly freebsd linux netbsd openbsd plan9 solaris
 
 package daemon
@@ -50,6 +51,10 @@ type Context struct {
 	nullFile *os.File
 
 	rpipe, wpipe *os.File
+}
+
+func (d *Context) SetLogFile(fd *os.File) {
+	d.logFile = fd
 }
 
 func (d *Context) reborn() (child *os.Process, err error) {
